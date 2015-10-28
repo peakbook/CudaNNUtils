@@ -2,8 +2,8 @@
 #define __CUDA_QUATERNIONS__
 
 #include <float.h>
-#define COMPARE_THRESHOLD (DBL_EPSILON*1e4)
-#define COMPARE_THRESHOLD_F (FLT_EPSILON*1e2)
+#define COMPARE_TOLERANCE (DBL_EPSILON*1e6)
+#define COMPARE_TOLERANCE_F (FLT_EPSILON*1e3)
 
 typedef float4 Quaternionf;
 typedef double4 Quaternion;
@@ -120,7 +120,7 @@ inline QuaternionArg quaternionarg(Quaternion q)
 __device__
 inline bool comp(double a, double b)
 {
-    return fabs(a-b) < (fmax(fabs(a),fabs(b))*COMPARE_THRESHOLD);
+    return fabs(a-b) < (fmax(fabs(a),fabs(b))*COMPARE_TOLERANCE);
 }
 
 __device__
@@ -290,7 +290,7 @@ inline QuaternionArgf quaternionarg(Quaternionf q)
 __device__
 inline bool comp(float a, float b)
 {
-    return fabsf(a-b) < (fmaxf(fabsf(a),fabsf(b))*COMPARE_THRESHOLD_F);
+    return fabsf(a-b) < (fmaxf(fabsf(a),fabsf(b))*COMPARE_TOLERANCE_F);
 }
 
 __device__
